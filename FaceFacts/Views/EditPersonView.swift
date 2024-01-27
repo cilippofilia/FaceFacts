@@ -13,10 +13,19 @@ struct EditPersonView: View {
     @Bindable var person: Person
     @Binding var navigationPath: NavigationPath
     
+    /// The SwiftData model context that will be used for queries and other
+    /// model operations within this environment.
     @Environment(\.modelContext) var modelContext
     
     @State private var selectedItem: PhotosPickerItem?
     
+    /// Property wrapper for managing a list of `Event` instances with sorting.
+    /// The `@Query` property wrapper is used to define a sorted list of `Event` instances.
+    ///    The sorting is based on the provided `SortDescriptor` instances, which specify the sorting criteria for the `name` and `location` properties of each `Event`.
+    ///
+    /// - Important:
+    /// The `events` property provides access to the sorted list of `Event` instances.
+    /// The sorting order is determined by the `SortDescriptor` instances, with the primary sort on `Event.name` and the secondary sort on `Event.location`.
     @Query(sort: [
         SortDescriptor(\Event.name),
         SortDescriptor(\Event.location)
